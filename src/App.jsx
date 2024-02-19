@@ -8,6 +8,9 @@ function App() {
 
    const [btnState,setBtnState] = useState(true)
 
+   const [displaySession,setdisplaySession] = useState(25)
+   const [displayBreak,setdisplayBreak] = useState(5)
+
    const changeBtnState = () => {
     setBtnState(prev => !prev )
    }
@@ -20,7 +23,7 @@ function App() {
                 
                   <h2 className="bg-red-400 text-[2rem] mx-11">Session</h2>
 
-                  <h1 className="text-7xl font-bold mt-10 mb-10">25:00</h1>
+                  <h1 className="text-7xl font-bold mt-10 mb-10">{displaySession}:00</h1>
 
                   <div className="flex gap-4 justify-center">
                     <button onClick={changeBtnState}> {btnState ? <FaPlay /> : <FaPause />} </button>
@@ -30,8 +33,8 @@ function App() {
               </div>
 
               <div className="flex gap-8">
-              <Control title={"Break"} defaultTime={5}/>
-              <Control title={"Session"} defaultTime={25}/>
+              <Control title={"Break"} defaultTime={displayBreak} changeBreak={date => setdisplayBreak(date)}/>
+              <Control title={"Session"} defaultTime={25} changeSession={date => setdisplaySession(date)}/>
               </div>
 
               <div className="mt-12">

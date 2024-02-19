@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-const Control = ({title,defaultTime}) => {
+const Control = ({title,defaultTime,changeBreak,changeSession}) => {
 
 
     const [timer,setTimer] =useState(defaultTime)
@@ -14,6 +14,8 @@ const Control = ({title,defaultTime}) => {
         if(title === "Session" && timer>25 )
         {
             setTimer(prev => prev-5)
+            changeSession(timer-5)
+            
         }
 
     }
@@ -21,6 +23,8 @@ const Control = ({title,defaultTime}) => {
 
     const timeIncreser = () => {
         setTimer(prev => prev+5)
+        changeSession(timer+5)
+        
     }
   return (
     <div className="flex flex-col items-center">
