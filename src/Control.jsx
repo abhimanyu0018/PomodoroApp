@@ -24,8 +24,8 @@ const Control = ({title,defaultTime}) => {
     }
   return (
     <div className="flex flex-col items-center">
-        <h3>{title}</h3>
-        <div className="flex">
+        <h3 className="text-xl">{title}</h3>
+        <div className="flex gap-6">
             <button className="px-1" onClick={timeReducer}>-</button>
             <h2>{timer}</h2>
             <button className="px-1" onClick={timeIncreser}>+</button>
