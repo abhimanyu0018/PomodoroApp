@@ -1,20 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
+import DisplayContext from './context/MinContext'
 
 const Control = ({title,defaultTime,changeBreak,changeSession}) => {
 
 
-    const [timer,setTimer] =useState(defaultTime)
+    const display = useContext(DisplayContext)
 
     const timeReducer = ()=> {
         if(title === "Break" && timer>5)
         {
-            setTimer(prev=> prev-5)
+            
         }
 
         if(title === "Session" && timer>25 )
         {
-            setTimer(prev => prev-5)
-            changeSession(timer-5)
+            // setTimer(prev => prev-5)
+            // changeSession(timer-5)
             
         }
 
@@ -30,9 +31,9 @@ const Control = ({title,defaultTime,changeBreak,changeSession}) => {
     <div className="flex flex-col items-center">
         <h3 className="text-xl">{title}</h3>
         <div className="flex gap-6">
-            <button className="px-1" onClick={timeReducer}>-</button>
-            <h2>{timer}</h2>
-            <button className="px-1" onClick={timeIncreser}>+</button>
+            <button className="px-1">-</button>
+            <h2>{defaultTime}</h2>
+            <button className="px-1">+</button>
         </div>
     </div>
   )

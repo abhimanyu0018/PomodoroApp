@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import { FaHeart,FaPause ,FaPlay,FaGithub,FaLinkedin,FaTwitter   } from "react-icons/fa";
 import { HiOutlineRefresh } from "react-icons/hi";
-import './App.css'
+import DisplayContext from './context/MinContext'
 import Control from './Control'
 
 function App() {
