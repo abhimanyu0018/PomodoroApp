@@ -1,15 +1,15 @@
 import React,{useState} from 'react'
 
-export const DisplayContext = React.createContext(null)
+export const displayContext = React.createContext([null])
 
 
 
 const DisplayContextProvider = (props) => {
-    const [mainDispaly,setMainDisplay] = useState(55)
+    const [mainDisplay,setMainDisplay] = useState(55)
   return (
-        <DisplayContext.Provider value={{mainDispaly,setMainDisplay}}>
+        <displayContext.Provider value={{mainDisplay,setMainDisplay}}>
             {props.children}
-        </DisplayContext.Provider>
+        </displayContext.Provider>
   )
 }
 

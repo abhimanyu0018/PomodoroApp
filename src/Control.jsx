@@ -1,10 +1,10 @@
 import React,{useState,useContext} from 'react'
-import DisplayContext from './context/MinContext'
+import {displayContext} from './context/MinContext'
 
 const Control = ({title,defaultTime,changeBreak,changeSession}) => {
 
 
-    const display = useContext(DisplayContext)
+    const display = useContext(displayContext)
 
     const timeReducer = ()=> {
         if(title === "Break" && timer>5)
