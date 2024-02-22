@@ -5,9 +5,10 @@ export const displayContext = React.createContext([null])
 
 
 const DisplayContextProvider = (props) => {
-    const [mainDisplay,setMainDisplay] = useState(55)
+    const [displaySession,setDisplaySession] = useState(25)
+    const [displayBreak,setDisplayBreak] = useState(5)
   return (
-        <displayContext.Provider value={{mainDisplay,setMainDisplay}}>
+        <displayContext.Provider value={{displaySession,setDisplaySession,displayBreak,setDisplayBreak}}>
             {props.children}
         </displayContext.Provider>
   )

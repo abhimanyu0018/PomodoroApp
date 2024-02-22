@@ -26,7 +26,7 @@ function App() {
                 
                   <h2 className="bg-red-400 text-[2rem] mx-11">Session</h2>
 
-                  <h1 className="text-7xl font-bold mt-10 mb-10">{display.mainDisplay}:00</h1>
+                  <h1 className="text-7xl font-bold mt-10 mb-10">{display.displaySession}:00</h1>
 
                   <div className="flex gap-4 justify-center">
                     <button onClick={changeBtnState}> {btnState ? <FaPlay /> : <FaPause />} </button>
