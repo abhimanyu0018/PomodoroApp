@@ -10,14 +10,25 @@ function App() {
 
    const [demoMin,setDemoMin] = useState(0)
 
+   const [secs,setSecs] = useState(0)
+
   //  const [displaySession,setdisplaySession] = useState(25)
   //  const [displayBreak,setdisplayBreak] = useState(5)
 
    const display = useContext(displayContext)
    console.log("display",display)
 
+  //  setDemoMin(display.displaySession)
+
    const changeBtnState = () => {
     setBtnState(prev => !prev )
+   }
+
+
+   const handler = () =>{
+    if(demoMin == 0) {
+      
+    }
    }
 
   return (
