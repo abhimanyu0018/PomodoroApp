@@ -5,31 +5,53 @@ import {displayContext} from './context/MinContext'
 import Control from './Control'
 
 function App() {
-
+  
+   const display = useContext(displayContext)
+   
+   
    const [btnState,setBtnState] = useState(true)
 
-   const [demoMin,setDemoMin] = useState(0)
+   const [mins,setMins] = useState(display.displaySession)
 
-   const [secs,setSecs] = useState(0)
+  //  const [secs,setSecs] = useState(0)
 
   //  const [displaySession,setdisplaySession] = useState(25)
   //  const [displayBreak,setdisplayBreak] = useState(5)
 
-   const display = useContext(displayContext)
-   console.log("display",display)
+   
 
-  //  setDemoMin(display.displaySession)
-
+   
    const changeBtnState = () => {
-    setBtnState(prev => !prev )
-   }
+     setBtnState(prev => !prev )
+    }
+    
+    
+    const handler = () =>{
+      let times = demoMin *60
+     if(btnState)
+     {
+      setBtnState(prev => !prev )
+      const interval = setInterval(() => {
+        times = times-1;
+        console.log(parseInt(times/60))
+      },1000) 
+     
+    }
+    else {
+      setBtnState(prev => !prev )
+      clearInterval(interval)
 
+    }
 
-   const handler = () =>{
-    if(demoMin == 0) {
+      
       
     }
-   }
+
+    const  reset = () => {
+      display.setDisplaySession(25)
+      display.setDisplayBreak(5)
+    }
+   
 
   return (
     <>
@@ -39,11 +61,11 @@ function App() {
                 
                   <h2 className="bg-red-400 text-[2rem] mx-11">Session</h2>
 
-                  <h1 className="text-7xl font-bold mt-10 mb-10">{display.displaySession}:{demoMin}</h1>
+                  <h1 className="text-7xl font-bold mt-10 mb-10">{mins}:00</h1>
 
                   <div className="flex gap-4 justify-center">
-                    <button onClick={changeBtnState}> {btnState ? <FaPlay /> : <FaPause />} </button>
-                    <button><HiOutlineRefresh className="text-xl" /></button>
+                    <button onClick={handler}> {btnState ? <FaPlay /> : <FaPause />} </button>
+                    <button onClick={reset}><HiOutlineRefresh className="text-xl" /></button>
                   </div>
                 
               </div>
