@@ -1,4 +1,4 @@
-import { useState,useContext } from 'react'
+import { useState,useContext,useEffect } from 'react'
 import { FaHeart,FaPause ,FaPlay,FaGithub,FaLinkedin,FaTwitter   } from "react-icons/fa";
 import { HiOutlineRefresh } from "react-icons/hi";
 import {displayContext} from './context/MinContext'
@@ -9,49 +9,57 @@ function App() {
    const display = useContext(displayContext)
    
    
-   const [btnState,setBtnState] = useState(true)
+   const [isRunning,setIsRunning] = useState(false)
 
-   const [mins,setMins] = useState(display.displaySession)
+   const [timeMin,setTimeMin] = useState(25)
 
-  //  const [secs,setSecs] = useState(0)
+   const [timeSec,setTimeSec] = useState(0)
 
-  //  const [displaySession,setdisplaySession] = useState(25)
-  //  const [displayBreak,setdisplayBreak] = useState(5)
+
+   useEffect(() => {
+      if(isRunning){
+        const timeInterval = setInterval(() => {
+          
+          //decrese sec
+          if(timeSec > 0) 
+          {
+            setTimeSec( prev => prev-1)
+          }
+
+          //decrese Min
+          if(timeSec === 0) {
+            setTimeMin( prev => prev-1)
+            setTimeSec(59)
+          }
+
+          if(timeMin === 0 && timeSec === 0 )
+          {
+            setIsRunningisRunning(false)
+          }
+        },1000)
+        return () => clearInterval(timeInterval)
+      }
+   },[isRunning,timeMin,timeSec])
 
    
-
-   
-   const changeBtnState = () => {
-     setBtnState(prev => !prev )
-    }
-    
-    
-    const handler = () =>{
-      let times = demoMin *60
-     if(btnState)
-     {
-      setBtnState(prev => !prev )
-      const interval = setInterval(() => {
-        times = times-1;
-        console.log(parseInt(times/60))
-      },1000) 
-     
-    }
-    else {
-      setBtnState(prev => !prev )
-      clearInterval(interval)
-
+   const RunningHandler = () => {
+     setIsRunning(prev => !prev )
     }
 
-      
-      
+
+    const reset = () => {
+      setTimeMin(25)
+      setTimeSec(0)
+      setIsRunning(false)
     }
 
-    const  reset = () => {
-      display.setDisplaySession(25)
-      display.setDisplayBreak(5)
+    //setting values
+
+    const valueHandler = () =>{
+      setIsRunning(false)
+      setTimeSec(0)
+      setTimeMin(display.displaySession)
     }
-   
 
   return (
     <>
@@ -61,21 +69,27 @@ function App() {
                 
                   <h2 className="bg-red-400 text-[2rem] mx-11">Session</h2>
 
-                  <h1 className="text-7xl font-bold mt-10 mb-10">{mins}:00</h1>
+                  <h1 className="text-7xl font-bold mt-10 mb-10">{timeMin}:{timeSec < 10 ? "0"+timeSec : timeSec }</h1>
 
                   <div className="flex gap-4 justify-center">
-                    <button onClick={handler}> {btnState ? <FaPlay /> : <FaPause />} </button>
+                    <button onClick={RunningHandler}> {isRunning ? <FaPause /> : <FaPlay /> } </button>
                     <button onClick={reset}><HiOutlineRefresh className="text-xl" /></button>
                   </div>
                 
               </div>
 
+              <div className="flex gap-2 flex-col">
               <div className="flex gap-8">
               <Control title={"Break"} defaultTime={5}/>
-              <Control title={"Session"} defaultTime={25}/>
+              <Control title={"Session"} defaultTime={25}/> 
               </div>
 
-              <div className="mt-12">
+              <div >
+                <button onClick={valueHandler} className="px-3 rounded-lg bg-red-400 hover:bg-red-900 text-lg" >SET</button>
+              </div>
+              </div>
+
+              <div className="mt-10">
                 <p>Made with <FaHeart className="inline"/> by Abhimanyu Kanaujia</p>
                 <p>Connect with me:</p>
                 <div className="flex items-center gap-2 p-2 justify-center">
