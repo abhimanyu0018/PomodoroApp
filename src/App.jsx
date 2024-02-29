@@ -38,10 +38,11 @@ function App() {
 
         if (timeMin === 0 && timeSec === 0) {
           setIsRunning(false);
-          // if(!isBreak){
-          //   setIsBreak( prev => !prev)
-          //   setTimeMin(display.displayBreak)
-          // }
+          if(!isBreak){
+            setIsBreak( prev => !prev)
+            setTimeMin(display.displayBreak)
+            setTimeSec(0)
+          }
         }
       }, 1000);
       return () => clearInterval(timeInterval);
