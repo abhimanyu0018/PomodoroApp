@@ -1,4 +1,6 @@
 import { useState, useContext, useEffect } from "react";
+import {Howl} from 'howler';
+
 import {
   FaHeart,
   FaPause,
@@ -10,6 +12,7 @@ import {
 import { HiOutlineRefresh } from "react-icons/hi";
 import { displayContext } from "./context/MinContext";
 import Control from "./Control";
+import achiveSound from "./assets/achiveSound.mp3"
 
 function App() {
   const display = useContext(displayContext);
@@ -18,9 +21,16 @@ function App() {
 
   const [isBreak, setIsBreak] = useState(false);
 
-  const [timeMin, setTimeMin] = useState(1);
+  const [timeMin, setTimeMin] = useState(25);
 
   const [timeSec, setTimeSec] = useState(0);
+
+  const alarmSound = new Howl({
+    src: [achiveSound],
+    loop: false,
+    html5: true,
+    volume: 0.5
+  })
 
   useEffect(() => {
     if (isRunning) {
@@ -38,9 +48,17 @@ function App() {
 
         if (timeMin === 0 && timeSec === 0) {
           setIsRunning(false);
+          alarmSound.play()
           if(!isBreak){
             setIsBreak( prev => !prev)
             setTimeMin(display.displayBreak)
+            setTimeSec(0)
+          }
+
+          if(isBreak)
+          {
+            setIsBreak( prev => !prev)
+            setTimeMin(display.displaySession)
             setTimeSec(0)
           }
         }
@@ -76,7 +94,7 @@ function App() {
             {isBreak ? "Break" : "Session"}
           </h2>
 
-          <h1 className="text-7xl font-bold mt-10 mb-10">
+          <h1 className="text-7xl font-bold mt-20 mb-10">
             {timeMin}:{timeSec < 10 ? "0" + timeSec : timeSec}
           </h1>
 
@@ -92,7 +110,7 @@ function App() {
         </div>
 
         <div className="flex gap-2 flex-col">
-          <div className="flex gap-8">
+          <div className="flex gap-8 mt-2">
             <Control title={"Break"} defaultTime={5} />
             <Control title={"Session"} defaultTime={25} />
           </div>
